@@ -32,9 +32,18 @@ create table submissions
 	size int,
 	url text,
 	unique(cik, accession_number)
+	owner_cik text,
+	owner_name text,
+	owner_city text,
+	owner_state text,
+	owner_street1 text,
+	owner_street2 text,
+	owner_zip text,
 )
 
 CREATE INDEX submissions_cik ON submissions(cik);
 CREATE INDEX submissions_ts ON submissions(ts);
+CREATE INDEX submissions_accession_number ON submissions(accession_number);
+CREATE INDEX submissions_owner_cik ON submissions(owner_cik);
 
 

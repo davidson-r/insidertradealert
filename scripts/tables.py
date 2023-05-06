@@ -21,5 +21,12 @@ submissions = Table(
     Column("report_date", String),
     Column("size", Integer),
     Column("url", String),
+    Column("owner_cik", String),
+    Column("owner_name", String),
+    Column("owner_city", String),
+    Column("owner_state", String),
+    Column("owner_street1", String),
+    Column("owner_street2", String),
+    Column("owner_zip", String),
 )
 

@@ -5,6 +5,10 @@ from tables import submissions
 from sqlalchemy.dialects.postgresql.dml import OnConflictDoNothing
 import os
 from concurrent import futures
+from datetime import datetime 
+
+start_time = datetime.now() 
+
 
 
 def get_filings(file_name: str):
@@ -80,8 +84,11 @@ def upload_filing(file):
 
 
 
-
 with futures.ThreadPoolExecutor(max_workers=5) as executor:
     future_res = dict((executor.submit(upload_filing, file), file)
                          for file in all_submissions)
 
+
+
+time_elapsed = datetime.now() - start_time 
+print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
