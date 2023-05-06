@@ -19,6 +19,7 @@ def save_submission(url: str, accession_number: str):
     xml_url = "/".join(xml_url)
     
     if os.path.isfile(f'data/form4/{accession_number}.xml'):
+        print("reading saved file..")
         with open(f'data/form4/{accession_number}.xml') as f:
             raw_xml = f.read()
     else:
