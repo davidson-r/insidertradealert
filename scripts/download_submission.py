@@ -35,6 +35,7 @@ def save_submission(url: str, accession_number: str):
 
 def update_submission(submission:dict, accession_number):
     reportingOwner = submission.get("ownershipDocument").get("reportingOwner")
+    reportingOwner = reportingOwner[0] if isinstance(reportingOwner,list) else reportingOwner
 
     try:
         insert_data={
