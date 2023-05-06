@@ -1,5 +1,5 @@
 import os
 
-files = os.listdir("/Users/home2418a/Downloads/submissions")
+files = os.listdir("submissions")
 
 print(len(files))

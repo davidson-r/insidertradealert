@@ -64,13 +64,13 @@ def get_filings(file_name: str):
 
 
 
-all_submissions = os.listdir("/Users/home2418a/Downloads/submissions")
+all_submissions = os.listdir("submissions")
 all_submissions = [x for x in all_submissions if x.startswith("CIK")]
 
 
 def upload_filing(file):
     print(file)
-    filings = get_filings(f"/Users/home2418a/Downloads/submissions/{file}")
+    filings = get_filings(f"submissions/{file}")
     filings = [x for x in filings if x['form'] in ('3','4','5')]
     if len(filings)>0:
         insrt_stmnt = insert(submissions).values(filings) 

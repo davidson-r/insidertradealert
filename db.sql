@@ -17,7 +17,7 @@ create table submissions
 (
 	cik text not null,
 	ts timestamp,
-	accession_number text,
+	accession_number text unique,
 	act text,
 	file_number text,
 	filing_date date,
@@ -31,14 +31,13 @@ create table submissions
 	report_date text,
 	size int,
 	url text,
-	unique(cik, accession_number)
 	owner_cik text,
 	owner_name text,
 	owner_city text,
 	owner_state text,
 	owner_street1 text,
 	owner_street2 text,
-	owner_zip text,
+	owner_zip text
 )
 
 CREATE INDEX submissions_cik ON submissions(cik);
