@@ -59,12 +59,13 @@ def get_submissions(limit:int):
     
 records = get_submissions(100)
 
-for record in records:
-    print(record.accession_number)
-    res = save_submission(record.url, record.accession_number)
-    update_submission(res, record.accession_number)
+while len(records):
+    for record in records:
+        print(record.accession_number)
+        res = save_submission(record.url, record.accession_number)
+        update_submission(res, record.accession_number)
 
-
+    records = get_submissions(100)
 
 
 
