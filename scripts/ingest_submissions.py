@@ -6,6 +6,7 @@ from sqlalchemy.dialects.postgresql.dml import OnConflictDoNothing
 import os
 from concurrent import futures
 from datetime import datetime 
+import platform
 
 start_time = datetime.now() 
 
@@ -64,13 +65,15 @@ def get_filings(file_name: str):
 
 
 
-all_submissions = os.listdir("submissions")
+submissions_path="/Users/home2418a/Downloads/submissions" if platform.system()=='Darwin' else "submissions"
+
+all_submissions = os.listdir(submissions_path)
 all_submissions = [x for x in all_submissions if x.startswith("CIK")]
 
 
 def upload_filing(file):
     print(file)
-    filings = get_filings(f"submissions/{file}")
+    filings = get_filings(f"{submissions_path}/{file}")
     filings = [x for x in filings if x['form'] in ('3','4','5')]
     if len(filings)>0:
         insrt_stmnt = insert(submissions).values(filings) 
@@ -84,7 +87,7 @@ def upload_filing(file):
 
 
 
-with futures.ThreadPoolExecutor(max_workers=5) as executor:
+with futures.ThreadPoolExecutor(max_workers=10) as executor:
     future_res = dict((executor.submit(upload_filing, file), file)
                          for file in all_submissions)
 

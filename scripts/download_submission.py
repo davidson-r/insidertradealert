@@ -27,18 +27,22 @@ def save_submission(url: str, accession_number: str):
 def update_submission(submission:dict, accession_number):
     reportingOwner = submission.get("ownershipDocument").get("reportingOwner")
 
-    with engine.connect() as conn:
-        update_stmnt = update(submissions).filter(submissions.c.accession_number == accession_number).values({
-            'owner_cik': reportingOwner.get("reportingOwnerId").get("rptOwnerCik"),
-            'owner_name': reportingOwner.get("reportingOwnerId").get("rptOwnerName"),
-            'owner_city': reportingOwner.get("reportingOwnerAddress").get("rptOwnerCity"),
-            'owner_state': reportingOwner.get("reportingOwnerAddress").get("rptOwnerState"),
-            'owner_street1': reportingOwner.get("reportingOwnerAddress").get("rptOwnerStreet1"),
-            'owner_street2': reportingOwner.get("reportingOwnerAddress").get("rptOwnerStreet2"),
-            'owner_zip': reportingOwner.get("reportingOwnerAddress").get("rptOwnerZipCode")
-            })
-        conn.execute(update_stmnt)
-        conn.commit()
+    try:
+        insert_data={
+                'owner_cik': reportingOwner.get("reportingOwnerId").get("rptOwnerCik"),
+                'owner_name': reportingOwner.get("reportingOwnerId").get("rptOwnerName"),
+                'owner_city': reportingOwner.get("reportingOwnerAddress").get("rptOwnerCity"),
+                'owner_state': reportingOwner.get("reportingOwnerAddress").get("rptOwnerState"),
+                'owner_street1': reportingOwner.get("reportingOwnerAddress").get("rptOwnerStreet1"),
+                'owner_street2': reportingOwner.get("reportingOwnerAddress").get("rptOwnerStreet2"),
+                'owner_zip': reportingOwner.get("reportingOwnerAddress").get("rptOwnerZipCode")
+                }
+        with engine.connect() as conn:
+            update_stmnt = update(submissions).filter(submissions.c.accession_number == accession_number).values(insert_data)
+            conn.execute(update_stmnt)
+            conn.commit()
+    except Exception as e: print(e)
+
 
 def get_submissions(limit:int):
     with engine.connect() as conn:

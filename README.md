@@ -12,3 +12,6 @@ cd insidertradealert
 pip3 install -r requirements.txt
 
 
+# ingest
+
+python3 scripts/ingest_submissions.py
