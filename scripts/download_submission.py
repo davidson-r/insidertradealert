@@ -6,14 +6,11 @@ from conn import engine
 from tables import submissions
 from sqlalchemy import insert, update, select
 import os.path
-
-def open_or_download_file(url:str, accession_number:str):
-    if os.path.isfile(f'data/form4/{accession_number}.xml'):
-        return
+import click
+from concurrent import futures
 
 
-def save_submission(url: str, accession_number: str):
-
+def download_save_submission(url: str, accession_number: str):
     xml_url = url.split("/")
     del xml_url[-2]
     xml_url = "/".join(xml_url)
@@ -33,7 +30,7 @@ def save_submission(url: str, accession_number: str):
     return xmltodict.parse(raw_xml)
 
 
-def update_submission(submission:dict, accession_number):
+def update_owner_info(submission:dict, accession_number):
     reportingOwner = submission.get("ownershipDocument").get("reportingOwner")
     if isinstance(reportingOwner,list):
         print("its a list")
@@ -61,15 +58,25 @@ def get_submissions(limit:int):
         query = select(submissions).where(submissions.c.owner_cik.is_(None)).order_by(submissions.c.ts.desc()).limit(limit)
         return conn.execute(query).all()
     
-records = get_submissions(100)
 
-while len(records):
-    for record in records:
-        print(record.accession_number)
-        res = save_submission(record.url, record.accession_number)
-        update_submission(res, record.accession_number)
+def download_and_update_submission(url: str, accession_number: str):
+    print(accession_number)
+    res = download_save_submission(url, accession_number)
+    update_owner_info(res, accession_number)
 
+    
+
+@click.command()
+@click.option('--max_workers', default=1, help='Number of max workers')
+def main(max_workers: str):
     records = get_submissions(100)
 
+    while len(records):
+        with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
+        records = get_submissions(100)
 
 
+
+if __name__ == '__main__':
+    main()

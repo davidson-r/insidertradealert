@@ -15,3 +15,7 @@ pip3 install -r requirements.txt
 # ingest
 
 python3 scripts/ingest_submissions.py
+
+# Useful commands
+
+pip3 freeze > requirements.txt
