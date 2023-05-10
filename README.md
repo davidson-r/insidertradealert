@@ -19,3 +19,8 @@ python3 scripts/ingest_submissions.py
 # Useful commands
 
 pip3 freeze > requirements.txt
+
+
+# ec2
+c3.2xlarge
+t2.micro
