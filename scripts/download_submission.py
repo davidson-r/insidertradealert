@@ -38,7 +38,7 @@ def get_owner_info(submission:dict, accession_number):
     if isinstance(reportingOwner,list):
         print("its a list")
     reportingOwner = reportingOwner[0] if isinstance(reportingOwner,list) else reportingOwner
-    footnotes = ownershipDocument.get("footnotes",{}).get("footnote")
+    footnotes = (ownershipDocument.get("footnotes") or {}).get("footnote",[])
     footnotes = {k:v for x in [{x['@id']:x['#text']} for x in footnotes] for k,v in x.items()}
 
     return {
@@ -164,7 +164,7 @@ def main(max_workers: str):
 
 
 if __name__ == '__main__':
-    main()
-    # download_and_update_submission("https://www.sec.gov/Archives/edgar/data/922224/000120919123004678/xslF345X03/doc4.xml","0001209191-23-004678")
+    # main()
+    download_and_update_submission("https://www.sec.gov/Archives/edgar/data/1232272/000104602522000097/xslF345X03/wf-form4_165170178952011.xml","0001046025-22-000097")
 
 

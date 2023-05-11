@@ -24,6 +24,9 @@ CREATE INDEX submissions_accession_number ON submissions(accession_number);
 CREATE INDEX submissions_owner_cik ON submissions(owner_cik);
 
 
+CREATE INDEX derivative_accession_number ON derivative(accession_number);
+CREATE INDEX derivative_report_owner_cik ON derivative(report_owner_cik);
+CREATE INDEX derivative_issuer_cik ON derivative(issuer_cik);
 
 
 create table derivative(
