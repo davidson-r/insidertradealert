@@ -164,7 +164,7 @@ def main(max_workers: str):
 
 
 if __name__ == '__main__':
-    # main()
-    download_and_update_submission("https://www.sec.gov/Archives/edgar/data/1232272/000104602522000097/xslF345X03/wf-form4_165170178952011.xml","0001046025-22-000097")
+    main()
+    # download_and_update_submission("https://www.sec.gov/Archives/edgar/data/1232272/000104602522000097/xslF345X03/wf-form4_165170178952011.xml","0001046025-22-000097")
 
 
