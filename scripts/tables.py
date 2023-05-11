@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, Boolean
+from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, JSON, Boolean, DATE, DECIMAL
 from sqlalchemy import MetaData
 metadata_obj = MetaData()
 
@@ -35,6 +35,46 @@ submissions = Table(
     Column("issuer_cik", String),
     Column("issuer_name", String),
     Column("issuer_trading_symbol", String),
-    Column("officer_title", String)
+    Column("officer_title", String),
+    Column("footnotes",JSON)
 )
 
+
+
+derivative = Table(
+    "derivative",
+    metadata_obj,
+    Column("accession_number", String),
+    Column("report_owner_cik", String),
+    Column("issuer_cik", String),
+    Column("is_non_derivative", Boolean),
+    Column("holding", Boolean),
+    Column("transaction_date", DATE),
+    Column("idx", Integer),
+    Column("conversion_or_exercise_price", DECIMAL),
+    Column("conversion_or_exercise_price_footnote", String),
+    Column("exercise_date", DATE),
+    Column("exercise_footnote", String),
+    Column("expiration_date", DATE),
+    Column("expiration_date_footnote", String),
+    Column("deemed_execution_date", DATE),
+    Column("direct_or_indirect_ownership", String),
+    Column("nature_of_ownership", String),
+    Column("ownership_footnote", String),
+    Column("shares_owned_following_transaction", DECIMAL),
+    Column("shares_owned_following_transaction_footnote", String),
+    Column("security_title", String),
+    Column("transaction_acquired_disposed_code", String),
+    Column("transaction_price_per_share", DECIMAL),
+    Column("transaction_shares", DECIMAL),
+    Column("equity_swap_involved", String),
+    Column("transaction_foot_note", String),
+    Column("transaction_code", String),
+    Column("transaction_form_type", String),
+    Column("underlying_security_shares", String),
+    Column("underlying_security_title", String),
+)
+
+	
+	
+    
