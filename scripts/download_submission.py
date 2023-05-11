@@ -77,7 +77,7 @@ def write_derivative(derivative_values):
 
 def get_submissions(limit:int):
     with engine.connect() as conn:
-        query = select(submissions).where(submissions.c.owner_cik.is_(None)).order_by(submissions.c.ts.desc()).limit(limit)
+        query = select(submissions).where(submissions.c.report_owner_cik.is_(None)).order_by(submissions.c.ts.desc()).limit(limit)
         return conn.execute(query).all()
     
 
