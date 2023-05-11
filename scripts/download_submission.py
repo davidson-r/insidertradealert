@@ -31,7 +31,7 @@ def download_save_submission(url: str, accession_number: str):
     return xmltodict.parse(raw_xml)
 
 
-def get_owner_info(submission:dict, accession_number):
+def get_owner_info(submission:dict):
     ownershipDocument = submission.get("ownershipDocument",{})
     reportingOwner = ownershipDocument.get("reportingOwner",{})
     issuer = ownershipDocument.get("issuer",{})
@@ -149,7 +149,7 @@ def get_derivate(submission, accession_number):
 def download_and_update_submission(url: str, accession_number: str):
     print(accession_number)
     submission = download_save_submission(url, accession_number)
-    owner_info = get_owner_info(submission, accession_number)
+    owner_info = get_owner_info(submission)
     write_owner_info(owner_info=owner_info, accession_number=accession_number)
     derivative_values = get_derivate(submission, accession_number)
     write_derivative(derivative_values)
@@ -162,12 +162,13 @@ def main(max_workers: str):
     while len(records):
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
+            # print(res)
         records = get_submissions(100)
 
 
 
 if __name__ == '__main__':
     main()
-    # download_and_update_submission("https://www.sec.gov/Archives/edgar/data/1439919/000122520822006489/xslF345X03/doc4.xml","0001225208-22-006489")
+    # download_and_update_submission("https://www.sec.gov/Archives/edgar/data/1737503/000172697823000052/xslF345X04/wf-form4_168325197053897.xml","0001726978-23-000052")
 
 
