@@ -87,12 +87,6 @@ def upload_filing(file):
             conn.commit()
 
 
-
-
-
-
-
-
 @click.command()
 @click.option('--max_workers', default=1, help='Number of max workers')
 def main(max_workers: str):
