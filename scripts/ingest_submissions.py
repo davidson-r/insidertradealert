@@ -7,6 +7,7 @@ import os
 from concurrent import futures
 from datetime import datetime 
 import platform
+import click
 
 start_time = datetime.now() 
 
@@ -87,11 +88,20 @@ def upload_filing(file):
 
 
 
-with futures.ThreadPoolExecutor(max_workers=10) as executor:
-    future_res = dict((executor.submit(upload_filing, file), file)
-                         for file in all_submissions)
 
 
 
-time_elapsed = datetime.now() - start_time 
-print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
+
+
+@click.command()
+@click.option('--max_workers', default=1, help='Number of max workers')
+def main(max_workers: str):
+    with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        [executor.submit(upload_filing, file) for file in all_submissions]
+
+
+    time_elapsed = datetime.now() - start_time 
+    print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
+
+if __name__ == '__main__':
+    main()
