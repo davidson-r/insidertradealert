@@ -11,6 +11,10 @@ git clone git@github.com:davidson-r/insidertradealert.git
 cd insidertradealert
 pip3 install -r requirements.txt
 
+sudo add-apt-repository universe
+sudo apt install docker-compose
+sudo systemctl enable docker
+
 
 # ingest
 
