@@ -38,3 +38,8 @@ sudo psql -h localhost -p 5432 -U postgres
 
 ### open PSQL port
 sudo ufw allow 5432/tcp
+
+
+# Execute script
+sh download_data.sh
+
