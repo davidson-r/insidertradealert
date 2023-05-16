@@ -35,3 +35,6 @@ t2.micro
 
 # psql
 sudo psql -h localhost -p 5432 -U postgres
+
+### open PSQL port
+sudo ufw allow 5432/tcp
