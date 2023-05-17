@@ -99,13 +99,17 @@ a {
   /* color: inherit; */
   text-decoration: none;
 }
+
+.modal-content{
+  width:auto
+}
 /* .modal-backdrop {
   --bs-backdrop-zindex: 1050;
   --bs-backdrop-bg: rgba(0, 0, 0, 0.5);
 } */
-.modal-backdrop.show {
+/* .modal-backdrop.show {
   opacity: .02;
-}
+} */
 
 /* @media (prefers-color-scheme: dark) {
   html {

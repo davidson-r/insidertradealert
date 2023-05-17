@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import pool from '../../db';
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
@@ -13,17 +13,18 @@ let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
 const ReportOwner = ({ submissions }) => {
     const [modalShow, setModalShow] = React.useState(false);
+    const [modalAccessionNumber, setModalAccessionNumber] = React.useState("0");
 
 
     const report_owner_name = submissions && submissions[0].report_owner_name
     return (
         <div><br /><br />
             <h1>{report_owner_name}</h1>
-            <br /><div style={{width:`50rem`}}>
+            <br /><div style={{ width: `50rem` }}>
                 {submissions && <Table bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th style={{ textAlign: `center`, width:`150px` }}>Filing Date</th>
+                            <th style={{ textAlign: `center`, width: `150px` }}>Filing Date</th>
                             <th style={{ textAlign: `center` }}>Issuer Name</th>
                             <th style={{ textAlign: `center` }}>Securities Acquired</th>
                             <th style={{ textAlign: `center` }}>Securities Disposed</th>
@@ -41,22 +42,29 @@ const ReportOwner = ({ submissions }) => {
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
-                                <td><>
-                                    <Button variant="primary" size='sm' onClick={() => setModalShow(true)} variant="outline-info">
-                                         View
+                                <td style={{ textAlign: `center` }}>
+                                    <Button variant="primary" size='sm'
+                                    
+                                     onClick={() => {
+                                        setModalShow(true)
+                                        setModalAccessionNumber(x.accession_number)
+                                    }} 
+                                    variant="outline-info">
+                                        View
                                     </Button>
-
-                                    <SecuritiesDetailedView
-                                        show={modalShow}
-                                        onHide={() => setModalShow(false)}
-                                    />
-                                </></td>
-                                <td style={{textAlign:`center`}}><a target="_blank" href={x.url}>View</a> </td>
-
+                                </td>
+                                <td style={{ textAlign: `center` }}><a target="_blank" href={x.url}>View</a> </td>
                             </tr>)
                         }
                     </tbody>
+                    <SecuritiesDetailedView
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                        modalaccessionnumber={modalAccessionNumber}
+                    />
+
                 </Table>
+
                 }</div>
         </div>
     );
@@ -152,6 +160,9 @@ const NonDerivative = ({ securities }) => {
 
 
 function SecuritiesDetailedView(props) {
+    const modalaccessionnumber = props.modalaccessionnumber
+    const {status, data}=  useFetch(`/api/securities/${modalaccessionnumber}`)
+    
     return (
         <Modal
             {...props}
@@ -162,16 +173,14 @@ function SecuritiesDetailedView(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
+                    Detailed View
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
+
+                {data && <Derivative securities={data}/>}
+                {data && <NonDerivative securities={data}/>}
+                                
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
@@ -209,41 +218,9 @@ export async function getStaticProps(context) {
 		where report_owner_cik=$1 order by filing_date desc
 ;`, [cik]
     );
-
-    // var securities = await pool.query(
-    //     `SELECT 
-    //     accession_number,
-    //     is_non_derivative, 
-    //     holding,
-    //     to_char(transaction_date,'yyyy-mm-dd')transaction_date,
-    //     idx,
-    //     conversion_or_exercise_price,
-    //     to_char(exercise_date,'yyyy-mm-dd')exercise_date,
-    //     to_char(expiration_date,'yyyy-mm-dd')expiration_date,
-    //     direct_or_indirect_ownership,
-    //     nature_of_ownership,
-    //     shares_owned_following_transaction,
-    //     security_title,
-    //     transaction_acquired_disposed_code,
-    //     transaction_price_per_share,
-    //     transaction_shares,
-    //     transaction_code
-    // FROM  derivative where report_owner_cik=$1
-    // order by accession_number,is_non_derivative,holding,idx	`, [cik]
-    // )
-
-    submissions = submissions.rows
-    // securities = securities.rows
-
-
-    // for (let i = 0; i < submissions.length; i++) {
-    //     submissions[i].securities = securities.filter(x => x.accession_number == submissions[i].accession_number)
-    // }
-
-    // console.log(submissions)
     return {
         props: {
-            submissions,
+            submissions: submissions.rows,
             // securities,
             revalidate: false,
         },
@@ -262,3 +239,34 @@ export async function getStaticPaths() {
         fallback: true,
     };
 }
+
+
+
+const cache = {};
+const useFetch = (url) => {
+    const [status, setStatus] = useState('idle');
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (!url) return;
+
+        const fetchData = async () => {
+            setStatus('fetching');
+            if (cache[url]) {
+                const data = cache[url];
+                setData(data);
+                setStatus('fetched');
+            } else {
+                const response = await fetch(url);
+                const data = await response.json();
+                cache[url] = data; // set response in cache;
+                setData(data);
+                setStatus('fetched');
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    return { status, data };
+};
