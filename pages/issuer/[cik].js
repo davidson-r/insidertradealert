@@ -19,13 +19,14 @@ const ReportOwner = ({ submissions }) => {
 
     return submissions && (
         <div><br /><br />
-            <h1>{submissions.length>0 && submissions[0].report_owner_name}</h1>
+            <h1>{submissions.length>0 && submissions[0].issuer_name}</h1>
             <br /><div style={{ width: `50rem` }}>
                 {submissions && <Table >
                     <thead>
                         <tr>
+                            <th style={{ textAlign: `center`, width:`150px` }}></th>
                             <th style={{ textAlign: `center` }}>Filing Date</th>
-                            <th style={{ textAlign: `center` }}>Issuer Name</th>
+                            {/* <th style={{ textAlign: `center` }}>Issuer Name</th> */}
                             <th style={{ textAlign: `center` }}> Acquired</th>
                             <th style={{ textAlign: `center` }}> Disposed</th>
                             <th style={{ textAlign: `center`, whiteSpace:`initial` }}> Owned after Transaction</th>
@@ -36,13 +37,17 @@ const ReportOwner = ({ submissions }) => {
                     <tbody>
                         {
                             submissions.map((x, i) => <tr key={i}>
+                                <td style={{ textAlign: `center` }}>
+                                <Link href={`/reporter/${x.report_owner_cik}-${slugify(x.report_owner_name)}`}
+                                > {x.report_owner_name}</Link></td>
                                 <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
-                                > {x.issuer_name}</Link></td>
+                                {/* <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
+                                > {x.issuer_name}</Link></td> */}
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
-                                <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url}/>
+                                <td style={{ textAlign: `center` }}>
+                                     <DetailedViewModal accession_number={x.accession_number} filing_url={x.url}/>
                                 </td>
                             </tr>)
                         }
@@ -109,6 +114,7 @@ const DetailedViewModal = ({accession_number, filing_url }) => {
                 <Typography id="modal-desc" textColor="text.tertiary">
 
                 {data && <NonDerivative securities={data} />}
+
                 {data &&
                     <Derivative securities={data} />
                 }
@@ -233,9 +239,9 @@ export async function getStaticProps(context) {
 				sum(case when transaction_acquired_disposed_code='D' then transaction_shares else 0 end)securities_disposed,
 				sum(case when idx=0 then shares_owned_following_transaction else 0 end)shares_owned_following_transaction
 			from derivative 
-			where is_non_derivative and report_owner_cik=$1
+			where is_non_derivative and issuer_cik=$1
 			group by 1 )d on s.accession_number=d.accession_number
-		where report_owner_cik=$1 order by filing_date desc
+		where issuer_cik=$1 order by filing_date desc
 ;`, [cik]
     );
     return {
