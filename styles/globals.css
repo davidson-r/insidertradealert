@@ -73,12 +73,6 @@
   }
 } */
 
-/* * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-} */
-
 /* html,
 body {
   max-width: 100vw;
@@ -95,14 +89,9 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-a {
-  /* color: inherit; */
-  text-decoration: none;
-}
-
-.modal-content{
+/* .modal-content{
   width:auto
-}
+} */
 /* .modal-backdrop {
   --bs-backdrop-zindex: 1050;
   --bs-backdrop-bg: rgba(0, 0, 0, 0.5);
@@ -116,3 +105,19 @@ a {
     color-scheme: dark;
   }
 } */
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body{
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+a {
+  /* color: inherit; */
+  text-decoration: none;
+}
+
+
