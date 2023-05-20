@@ -1,6 +1,6 @@
 
 source .local.env
-
+pip3 freeze > requirements.txt
 
 # ec2 install
 

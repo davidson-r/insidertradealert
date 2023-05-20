@@ -3,7 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
+// import Link from 'next/link';
+import Link from '@mui/joy/Link';
 
 export default function App({ Component, pageProps }) {
 
@@ -20,11 +21,19 @@ export default function App({ Component, pageProps }) {
         >
           <MenuIcon />
         </IconButton> */}
-        <Typography
-          variant="h6" component="div" sx={{ flexGrow: 1 }}
-        >
-          InsiderTradeAlert
-        </Typography>
+        {/* <Typography
+            variant="h6" component="div" sx={{ flexGrow: 1 }}
+          >
+            InsiderTradeAlert
+          </Typography> */}
+
+          <Typography
+            variant="h6" component="div" sx={{ flexGrow: 1 }}
+          >
+                    <Link href='/'>
+
+            InsiderTradeAlert</Link>
+          </Typography>
       </Toolbar>
     </AppBar>
     <Container maxWidth="lg" >
