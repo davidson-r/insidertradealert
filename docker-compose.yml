@@ -32,8 +32,9 @@ services:
   #   #  - NGINX_HOST=foobar.com
   #   - NGINX_PORT=80
 
-
-
 volumes:
   db:
     driver: local
+  nextjs:
+  nginx:
+
