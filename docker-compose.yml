@@ -13,15 +13,13 @@ services:
 
   nextjs:
     build: ./
-    networks:
-      - app-network
-
+    depends_on:
+      - db
+    
   nginx:
     build: ./nginx
     ports:
       - 80:80
-    networks:
-      - app-network
 
   # web:
   #   image: nginx
@@ -35,8 +33,6 @@ services:
   #   - NGINX_PORT=80
 
 
-networks:
-  app-network:
 
 volumes:
   db:
