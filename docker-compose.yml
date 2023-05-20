@@ -13,8 +13,7 @@ services:
 
   nextjs:
     build: ./
-    ports:
-      - '5432:5432'
+    network_mode: host
   nginx:
     build: ./nginx
     ports:
