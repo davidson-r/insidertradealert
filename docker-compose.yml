@@ -13,6 +13,8 @@ services:
 
   nextjs:
     build: ./
+    ports:
+      - '5432:5432'
   nginx:
     build: ./nginx
     ports:
