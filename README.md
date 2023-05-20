@@ -16,7 +16,7 @@ sudo apt install docker-compose
 sudo systemctl enable docker
 sudo apt install postgresql-client-common
 sudo apt-get install postgresql-client
-
+sudo apt install npm
 
 
 # ingest
