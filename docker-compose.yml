@@ -20,6 +20,8 @@ services:
     build: ./nginx
     ports:
       - 80:80
+    networks:
+      - app-network
 
   # web:
   #   image: nginx
