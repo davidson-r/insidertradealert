@@ -43,3 +43,7 @@ sudo ufw allow 5432/tcp
 # Execute script
 sh download_data.sh
 
+# Docker setup
+https://steveholgado.com/nginx-for-nextjs/
+
+

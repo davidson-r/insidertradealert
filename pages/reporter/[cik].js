@@ -243,6 +243,7 @@ export async function getStaticProps(context) {
             submissions: submissions.rows,
             // securities,
             revalidate: false,
+            notFound:true
         },
     };
 
