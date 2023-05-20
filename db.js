@@ -1,7 +1,6 @@
 const { Pool } = require("pg");
 
-var port = 5432
-// var port = process.env.NODE_ENV==='development' ? 5433  : 5432
+var port = process.env.NODE_ENV==='development' ? 5433  : 5432
 
 const pool = new Pool({
   connectionString: `postgresql://postgres:postgres@localhost:${port}/postgres`
@@ -9,4 +8,3 @@ const pool = new Pool({
 
 module.exports = pool;
 
-console.log("port",port)
