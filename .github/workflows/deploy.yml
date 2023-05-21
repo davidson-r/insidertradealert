@@ -16,8 +16,8 @@ jobs:
     - name: SSH to EC2 and deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
+        host: 52.203.108.19
+        username: ubuntu
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         script: |
-          cd insidetradealert && git pull && pip3 install -r requirements.txt
+          cd insidetradealert && git pull && sudo docker-compose down && sudo docker-compose up --build -d
