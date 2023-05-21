@@ -20,12 +20,12 @@ const ReportOwner = ({ submissions }) => {
     return submissions && (
         <div><br /><br />
             <h1>{submissions.length>0 && submissions[0].issuer_name}</h1>
-            <br /><div style={{ width: `50rem` }}>
-                {submissions && <Table >
+            <br />
+                {submissions && <Table style={{maxWidth:800}} >
                     <thead>
                         <tr>
                             <th style={{ textAlign: `center`, width:`150px` }}></th>
-                            <th style={{ textAlign: `center` }}>Filing Date</th>
+                            <th style={{ textAlign: `center`, width:`98px` }}>Filing Date</th>
                             {/* <th style={{ textAlign: `center` }}>Issuer Name</th> */}
                             <th style={{ textAlign: `center` }}> Acquired</th>
                             <th style={{ textAlign: `center` }}> Disposed</th>
@@ -53,8 +53,7 @@ const ReportOwner = ({ submissions }) => {
                         }
                     </tbody>
                 </Table>
-
-                }</div>
+                }
         </div>
     );
 };
