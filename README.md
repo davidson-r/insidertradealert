@@ -47,3 +47,5 @@ sh download_data.sh
 https://steveholgado.com/nginx-for-nextjs/
 
 
+# Github actions setup
+https://nbailey.ca/post/github-actions-ssh/
