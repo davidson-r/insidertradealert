@@ -102,16 +102,16 @@ const Search = () => {
           }}
         >
           <List
-            size="sm"
+            size="md"
             orientation="horizontal"
             wrap
             sx={{ flexGrow: 0, '--ListItem-radius': '8px' }}
           >
-            <ListItem nested sx={{ width: { xs: '50%', md: 300 } }}>
+            <ListItem nested sx={{ width: { xs: '100%', md: 500 } }}>
               <ListSubheader>Results</ListSubheader>
               <List>
                 {
-                  hits.map((x, i) => <ListItem>
+                  hits.map((x, i) => <ListItem  >
                     <ListItemButton component="a" href={x.url}>
                       {x.name}
                     </ListItemButton>
