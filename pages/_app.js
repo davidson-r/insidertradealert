@@ -105,7 +105,7 @@ const Search = () => {
             size="md"
             orientation="horizontal"
             wrap
-            sx={{ flexGrow: 0, '--ListItem-radius': '8px'}}
+            sx={{ flexGrow: 0, '--ListItem-radius': '8px', width:`100%`}}
           >
             <ListItem nested sx={{ width: { xs: '100%' ,width:`100%`} }}>
               <ListSubheader>Results</ListSubheader>
