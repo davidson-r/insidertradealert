@@ -9,6 +9,8 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
+import { ThemeProvider } from '@mui/material/styles';
+// import theme from '../components/theme'
 
 
 export default function Document() {
@@ -16,66 +18,33 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      {/* <ThemeProvider theme={theme}> */}
       <body>
         <Main  />
         <Footer />
         <NextScript />
       </body>
+      {/* </ThemeProvider>, */}
+
     </Html>
   )
 }
 
 
 const Footer = () => {
-  const color = 'neutral'
 
   return <Sheet
     variant="solid"
     color='neutral'
     invertedColors
     sx={{
-      ...(color !== 'warning' && {
-        bgcolor: `neutral.800`,
-      }),
       flexGrow: 1,
       p: 2,
       marginTop:`2rem`,
-      // bottom: 0,
-      // position: 'relative',
-      // width: `100%`,
-      // mx: -3,
-      // my: -3,
+      // background:`#eee`,
       borderRadius: { xs: 0, sm: 'xs' },
     }}
   >
-    {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-<IconButton
-  variant="soft"
-  size="sm"
-  sx={{ borderRadius: '50%' }}
->
-  <img alt="" src="/static/branding/pricing/block-green.svg" />
-</IconButton>
-<Divider orientation="vertical" />
-<IconButton variant="plain">
-  <FacebookRoundedIcon />
-</IconButton>
-<IconButton variant="plain">
-  <GitHubIcon />
-</IconButton>
-<Input
-  variant="soft"
-  placeholder="Your Email"
-  type="email"
-  name="email"
-  endDecorator={
-    <Button variant="soft" aria-label="subscribe">
-      <SendIcon />
-    </Button>
-  }
-  sx={{ ml: 'auto', display: { xs: 'none', md: 'flex' } }}
-/>
-</Box> */}
     <Divider sx={{ my: 2 }} />
     <Box
       sx={{

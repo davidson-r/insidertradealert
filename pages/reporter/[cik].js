@@ -128,7 +128,8 @@ const Derivative = ({ securities }) => {
     return (
         <><i>Derivative Securities Acquired, Disposed of, or Beneficially Owned
             (e.g., puts, calls, warrants, options, convertible securities)</i>
-            <Table size="sm" style={{width:`100%`}}>
+            <Table size="sm" style={{width:`100%`}}
+            >
                 <thead>
                     <tr>
                         {/* <th>Holding</th>
