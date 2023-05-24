@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+  nextjs:
+    build: ./
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      WAIT_HOSTS: db:5432
+
   db:
     image: postgres:14.1-alpine
     restart: always
@@ -16,18 +25,18 @@ services:
       timeout: 60s
       retries: 5
       start_period: 80s  
-
-  nextjs:
-    build: ./
-    depends_on:
-      - db
-    links:
-      - db
     
   nginx:
     build: ./nginx
     ports:
       - 80:80
+
+
+volumes:
+  db:
+    driver: local
+  # nextjs:
+  # nginx:
 
   # web:
   #   image: nginx
@@ -39,10 +48,3 @@ services:
   #   environment:
   #   #  - NGINX_HOST=foobar.com
   #   - NGINX_PORT=80
-
-volumes:
-  db:
-    driver: local
-  nextjs:
-  nginx:
-
