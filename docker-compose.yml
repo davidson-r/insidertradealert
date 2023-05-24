@@ -13,8 +13,7 @@ services:
   nextjs:
     build: ./
     depends_on:
-      db:
-        condition: service_completed_successfully
+      - db
   nginx:
     build: ./nginx
     ports:
@@ -23,6 +22,8 @@ services:
 volumes:
   db:
     driver: local
+  # nextjs:
+  # nginx:
 
   # web:
   #   image: nginx
