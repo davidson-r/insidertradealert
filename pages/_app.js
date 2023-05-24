@@ -111,7 +111,7 @@ const Search = () => {
               <ListSubheader>Results</ListSubheader>
               <List>
                 {
-                  hits.map((x, i) => <ListItem >
+                  hits.map((x, i) => <ListItem key={i} >
                     <ListItemButton component="a" href={x.url} >
                       {x.name}
                     </ListItemButton>

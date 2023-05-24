@@ -10,5 +10,9 @@ export function slugify(text) {
       .replace(/-+$/, '');         // Trim - from end of text
   }
   
+let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
-module.exports =slugify
+
+module.exports =slugify, formatter
+
+
