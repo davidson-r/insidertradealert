@@ -1,14 +1,5 @@
 version: '3.8'
 services:
-  nextjs:
-    build: ./
-    depends_on:
-      - db
-    links:
-      - db
-    environment:
-      WAIT_HOSTS: db:5432
-
   db:
     image: postgres:14.1-alpine
     restart: always
@@ -25,7 +16,15 @@ services:
       timeout: 60s
       retries: 5
       start_period: 80s  
-    
+  nextjs:
+    build: ./
+    depends_on:
+      db:
+        condition: service_started
+    links:
+      - db
+    environment:
+      WAIT_HOSTS: db:5432    
   nginx:
     build: ./nginx
     ports:
