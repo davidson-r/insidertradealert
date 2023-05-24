@@ -20,7 +20,7 @@ services:
     build: ./
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
     links:
       - db
     environment:
