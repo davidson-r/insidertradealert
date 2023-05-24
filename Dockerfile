@@ -12,6 +12,10 @@ RUN npm install --production
 
 COPY ./ ./
 
+RUN chmod +x /app/wait-for-it.sh
+
+ENTRYPOINT ["/bin/sh","-c","/wait-for-it.sh db:5432 -t 30 -- echo 'Database running...'"]
+
 RUN npm run build
 
 EXPOSE 3000
