@@ -6,7 +6,7 @@ import pool from '../db';
 import Table from '@mui/joy/Table';
 import Link from '@mui/joy/Link';
 const slugify = require('../utils/functions');
-import {DetailedViewModal} from "../components/modals"
+import DetailedViewModal from "../components/modals"
 import useFetch from "../components/fetch"
 
 let formatter = Intl.NumberFormat('en', { notation: 'compact' });
