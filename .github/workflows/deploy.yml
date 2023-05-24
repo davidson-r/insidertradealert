@@ -1,26 +1,26 @@
-name: Deploy to EC2
+# name: Deploy to EC2
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
     
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
 
-    - name: SSH to EC2 and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: 52.203.108.19
-        username: deploy
-        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        script: |
-          cd /home/ubuntu/insidertradealert && git pull && sudo docker-compose down && sudo docker-compose up --build -d
+#     - name: SSH to EC2 and deploy
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: 52.203.108.19
+#         username: deploy
+#         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+#         script: |
+#           cd /home/ubuntu/insidertradealert && git pull && sudo docker-compose down && sudo docker-compose up --build -d
 
 
 
