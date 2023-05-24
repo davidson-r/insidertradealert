@@ -12,9 +12,9 @@ RUN npm install --production
 
 COPY ./ ./
 
-RUN chmod +x /wait-for-it.sh
+RUN chmod +x /usr/app/wait-for-it.sh
 
-ENTRYPOINT ["/bin/sh","-c","/wait-for-it.sh db:5432 -t 30 -- echo 'Database running...'"]
+ENTRYPOINT ["/bin/sh","-c","/usr/app/wait-for-it.sh db:5432 -t 30 -- echo 'Database running...'"]
 
 RUN npm run build
 
