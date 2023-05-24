@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import pool from '../db';
+// import pool from '../db';
 import Table from '@mui/joy/Table';
 import Link from '@mui/joy/Link';
 const slugify = require('../utils/functions');
@@ -27,10 +27,9 @@ export default function Home({page_data}) {
         <br />
         <br />
         <br />
-        {console.log(page_data)}
         <h1>
           Recent Filings</h1>
-          {page_data && <Table style={{maxWidth:800}}>
+          {/* {page_data && <Table style={{maxWidth:800}}>
                     <thead>
                         <tr>
                             <th style={{ textAlign: `center`, width:`98px` }}>Filing Date</th>
@@ -59,7 +58,7 @@ export default function Home({page_data}) {
                         }
                     </tbody>
                 </Table>
-                }
+                } */}
 
 
 
@@ -73,44 +72,44 @@ export default function Home({page_data}) {
 
 
 
-export async function getStaticProps() {
-    var index_query = await pool.query(
-        `select distinct cik,
-        s.accession_number,
-        report_owner_cik,issuer_cik,report_owner_name,issuer_name,
-        to_char(filing_date,'yyyy-mm-dd')filing_date,
-        report_owner_state,
-        report_owner_street1,
-        report_owner_street2,
-        report_owner_zip,
-        url,
-		securities_acquired,
-		securities_disposed,
-		shares_owned_following_transaction, to_char(ts,'yyyy-mm-dd')ts
-        from submissions s
-		left join (select accession_number, 
-				sum(case when transaction_acquired_disposed_code='A' then transaction_shares else 0 end)securities_acquired,
-				sum(case when transaction_acquired_disposed_code='D' then transaction_shares else 0 end)securities_disposed,
-				sum(case when idx=0 then shares_owned_following_transaction else 0 end)shares_owned_following_transaction
-			from derivative 
-			where accession_number in (
-			 select accession_number from (
-				 select distinct accession_number,ts 
-				 from submissions where report_owner_name is not null order by ts desc limit 10
-			 )t
-			) and   is_non_derivative 
-			group by 1 )d on s.accession_number=d.accession_number
-		where report_owner_name is not null
-		order by ts desc
-		 limit 10
-;` );
-    return {
-        props: {
-            page_data: index_query.rows,
-            revalidate: false,
-            notFound:true
-        },
-    };
+// export async function getStaticProps() {
+//     var index_query = await pool.query(
+//         `select distinct cik,
+//         s.accession_number,
+//         report_owner_cik,issuer_cik,report_owner_name,issuer_name,
+//         to_char(filing_date,'yyyy-mm-dd')filing_date,
+//         report_owner_state,
+//         report_owner_street1,
+//         report_owner_street2,
+//         report_owner_zip,
+//         url,
+// 		securities_acquired,
+// 		securities_disposed,
+// 		shares_owned_following_transaction, to_char(ts,'yyyy-mm-dd')ts
+//         from submissions s
+// 		left join (select accession_number, 
+// 				sum(case when transaction_acquired_disposed_code='A' then transaction_shares else 0 end)securities_acquired,
+// 				sum(case when transaction_acquired_disposed_code='D' then transaction_shares else 0 end)securities_disposed,
+// 				sum(case when idx=0 then shares_owned_following_transaction else 0 end)shares_owned_following_transaction
+// 			from derivative 
+// 			where accession_number in (
+// 			 select accession_number from (
+// 				 select distinct accession_number,ts 
+// 				 from submissions where report_owner_name is not null order by ts desc limit 10
+// 			 )t
+// 			) and   is_non_derivative 
+// 			group by 1 )d on s.accession_number=d.accession_number
+// 		where report_owner_name is not null
+// 		order by ts desc
+// 		 limit 10
+// ;` );
+//     return {
+//         props: {
+//             page_data: index_query.rows,
+//             revalidate: false,
+//             notFound:true
+//         },
+//     };
 
-}
+// }
 
