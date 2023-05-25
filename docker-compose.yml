@@ -1,7 +1,19 @@
 version: '3.8'
 services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
   nextjs:
     build: ./
+    depends_on:
+      - db
   nginx:
     build: ./nginx
     ports:
@@ -10,4 +22,16 @@ services:
 volumes:
   db:
     driver: local
+  # nextjs:
+  # nginx:
 
+  # web:
+  #   image: nginx
+  #   restart: always
+  #   volumes:
+  #   - ./templates:/etc/nginx/templates
+  #   ports:
+  #   - "8080:80"
+  #   environment:
+  #   #  - NGINX_HOST=foobar.com
+  #   - NGINX_PORT=80
