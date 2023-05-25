@@ -20,36 +20,40 @@ const ReportOwner = ({ submissions }) => {
 
     return submissions && (
         <div><br /><br />
-            <h1>{submissions.length>0 && submissions[0].report_owner_name}</h1>
-            <br />
-                {submissions && <Table style={{maxWidth:800}}>
-                    <thead>
-                        <tr>
-                            <th style={{ textAlign: `center`, width:`98px` }}>Filing Date</th>
-                            <th style={{ textAlign: `center`, width:`120px` }}>Issuer Name</th>
-                            <th style={{ textAlign: `center` }}> Acquired</th>
-                            <th style={{ textAlign: `center` }}> Disposed</th>
-                            <th style={{ textAlign: `center`, whiteSpace:`initial` }}> Owned after Transaction</th>
-                            <th style={{ textAlign: `center` }}>Detailed View</th>
-                            {/* <th style={{ textAlign: `center` }}>Filing</th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            submissions.map((x, i) => <tr key={i}>
-                                <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
-                                > {x.issuer_name}</Link></td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
-                                <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url}/>
-                                </td>
-                            </tr>)
-                        }
-                    </tbody>
-                </Table>
-                }
+            <h1>{submissions.length > 0 && submissions[0].report_owner_name}</h1>
+            <i>{submissions.length > 0 && submissions[0].officer_title}
+            </i><br />
+            <h5><span style={{color:`#aaa`}}>{submissions.length > 0 && submissions[0].report_owner_city}</span>&emsp;
+                <span style={{color:`#aaa`}}>{submissions.length > 0 && submissions[0].report_owner_state}</span>
+            </h5>
+            {submissions && <Table style={{ maxWidth: 800 }}>
+                <thead>
+                    <tr>
+                        <th style={{ textAlign: `center`, width: `98px` }}>Filing Date</th>
+                        <th style={{ textAlign: `center`, width: `120px` }}>Issuer Name</th>
+                        <th style={{ textAlign: `center` }}> Acquired</th>
+                        <th style={{ textAlign: `center` }}> Disposed</th>
+                        <th style={{ textAlign: `center`, whiteSpace: `initial` }}> Owned after Transaction</th>
+                        <th style={{ textAlign: `center` }}>Detailed View</th>
+                        {/* <th style={{ textAlign: `center` }}>Filing</th> */}
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        submissions.map((x, i) => <tr key={i}>
+                            <td style={{ textAlign: `center` }}>{x.filing_date}</td>
+                            <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
+                            > {x.issuer_name}</Link></td>
+                            <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
+                            <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
+                            <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
+                            <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
+                            </td>
+                        </tr>)
+                    }
+                </tbody>
+            </Table>
+            }
         </div>
     );
 };
@@ -74,7 +78,10 @@ export async function getStaticProps(context) {
         url,
 		securities_acquired,
 		securities_disposed,
-		shares_owned_following_transaction
+		shares_owned_following_transaction,
+        officer_title,
+        report_owner_city,
+        report_owner_state
         from submissions s
 		left join (select accession_number, 
 				sum(case when transaction_acquired_disposed_code='A' then transaction_shares else 0 end)securities_acquired,
@@ -91,7 +98,7 @@ export async function getStaticProps(context) {
             submissions: submissions.rows,
             // securities,
             revalidate: false,
-            notFound:true
+            notFound: true
         },
     };
 
@@ -110,33 +117,3 @@ export async function getStaticPaths() {
 }
 
 
-
-const cache = {};
-const useFetch = (url, open) => {
-    const [status, setStatus] = useState('idle');
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        if (!url) return;
-        if (!open)return;
-
-        const fetchData = async () => {
-            setStatus('fetching');
-            if (cache[url]) {
-                const data = cache[url];
-                setData(data);
-                setStatus('fetched');
-            } else {
-                const response = await fetch(url);
-                const data = await response.json();
-                cache[url] = data; // set response in cache;
-                setData(data);
-                setStatus('fetched');
-            }
-        };
-
-        fetchData();
-    }, [url, open]);
-
-    return { status, data };
-};
