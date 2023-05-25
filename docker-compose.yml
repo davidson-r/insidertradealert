@@ -2,8 +2,6 @@ version: '3.8'
 services:
   nextjs:
     build: ./
-    depends_on:
-      - db
   nginx:
     build: ./nginx
     ports:
