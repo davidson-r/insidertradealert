@@ -19,4 +19,4 @@ EXPOSE 3000
 USER node
 
 # Run npm start script with PM2 when container starts
-CMD ["wait-for-db.sh"]
+CMD [ "pm2-runtime", "npm", "--", "start" ]
