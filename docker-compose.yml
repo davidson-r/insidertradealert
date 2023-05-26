@@ -9,22 +9,48 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - /var/lib/postgresql/data
-    healthcheck:
-      test: /usr/bin/pg_isready
-      interval: 5s
-      timeout: 10s
-      retries: 120
-
+      - db:/var/lib/postgresql/data
   nextjs:
     build: ./
     depends_on:
-      db:
-        condition: service_healthy
+      - db
   nginx:
     build: ./nginx
     ports:
       - 80:80
+
+volumes:
+  db:
+    driver: local
+
+
+# version: '3.8'
+# services:
+#   db:
+#     image: postgres:14.1-alpine
+#     restart: always
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#     ports:
+#       - '5432:5432'
+#     volumes: 
+#       - db:/var/lib/postgresql/data
+#     healthcheck:
+#       test: /usr/bin/pg_isready
+#       interval: 5s
+#       timeout: 10s
+#       retries: 120
+
+#   nextjs:
+#     build: ./
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#   nginx:
+#     build: ./nginx
+#     ports:
+#       - 80:80
 
 # volumes:
 #   db:
