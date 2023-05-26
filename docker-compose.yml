@@ -10,6 +10,12 @@ services:
       - '5432:5432'
     volumes: 
       - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5432"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   nextjs:
     build: ./
     depends_on:
