@@ -2,13 +2,13 @@ version: '3.8'
 services:
   nextjs:
     build: ./
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
 
   nginx:
     build: ./nginx
     ports:
       - 80:80
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
 # volumes:
 #   db:
