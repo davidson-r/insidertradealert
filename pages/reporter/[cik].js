@@ -4,6 +4,7 @@ const slugify = require('../../utils/functions');
 import Table from '@mui/joy/Table';
 
 import Link from '@mui/joy/Link';
+import Head from 'next/head'
 
 import DetailedViewModal from "../../components/modals"
 
@@ -15,6 +16,10 @@ const ReportOwner = ({ submissions }) => {
     return submissions && (
         <div><br /><br />
             <h1>{submissions.length > 0 && submissions[0].report_owner_name}</h1>
+            <Head>
+                <title>{submissions[0].report_owner_name} | Insider Trade Alert</title>
+            </Head>
+
             <i>{submissions.length > 0 && submissions[0].officer_title}
             </i><br />
             <h5><span style={{color:`#aaa`}}>{submissions.length > 0 && submissions[0].report_owner_city}</span>&emsp;

@@ -1,13 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import pool from '../db';
 import Table from '@mui/joy/Table';
 import Link from '@mui/joy/Link';
 const slugify = require('../utils/functions');
 import DetailedViewModal from "../components/modals"
-import useFetch from "../components/fetch"
 
 let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
@@ -18,9 +14,6 @@ export default function Home({page_data}) {
     <>
       <Head>
         <title>Insider Trade Alert</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <br />
@@ -59,16 +52,10 @@ export default function Home({page_data}) {
                     </tbody>
                 </Table>
                 }
-
-
-
-
       </main>
     </>
   )
 }
-
-
 
 
 

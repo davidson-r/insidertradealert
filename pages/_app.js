@@ -1,5 +1,7 @@
 import '@/styles/globals.css';
 
+import Head from 'next/head'
+
 import { useState } from "react";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -24,6 +26,12 @@ export default function App({ Component, pageProps }) {
 
 
   return <>
+    <Head>
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
     <Header />
     <Container maxWidth="lg" style={{ minHeight: `80vh` }} >
       <Component {...pageProps} />
@@ -105,9 +113,9 @@ const Search = () => {
             size="md"
             orientation="horizontal"
             wrap
-            sx={{ flexGrow: 0, '--ListItem-radius': '8px', width:`100%`}}
+            sx={{ flexGrow: 0, '--ListItem-radius': '8px', width: `100%` }}
           >
-            <ListItem nested sx={{ width: { xs: '100%' ,width:`100%`} }}>
+            <ListItem nested sx={{ width: { xs: '100%', width: `100%` } }}>
               <ListSubheader>Results</ListSubheader>
               <List>
                 {
