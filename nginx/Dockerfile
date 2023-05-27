@@ -10,6 +10,7 @@ COPY ./default.conf /etc/nginx/conf.d/
 
 # Expose the listening port
 EXPOSE 80
+EXPOSE 433
 
 # Launch NGINX
 # CMD [ "ninx", "-g", "daemon off;" ]
