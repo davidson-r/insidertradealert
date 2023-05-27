@@ -28,7 +28,7 @@ export default function Home({page_data}) {
         <br />
         <br />
         <h1>
-          Recent Filings...</h1>
+          Recent Filings</h1>
           {page_data && <Table style={{maxWidth:800}}>
                     <thead>
                         <tr>
