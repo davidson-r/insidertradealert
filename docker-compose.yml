@@ -11,10 +11,13 @@ services:
       - 433:433
   certbot:
     image: certbot/certbot:latest
+    restart: always
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
+    
 
 # version: '3.8'
 # services:
