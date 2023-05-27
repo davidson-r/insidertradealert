@@ -2,6 +2,7 @@ version: '3.8'
 services:
   nextjs:
     build: ./
+    network_mode: "host"
   nginx:
     build: ./nginx
     ports:
