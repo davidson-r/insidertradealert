@@ -10,9 +10,9 @@ COPY ./default.conf /etc/nginx/conf.d/
 
 # Expose the listening port
 EXPOSE 80
-EXPOSE 433
+EXPOSE 443
 
 # Launch NGINX
-CMD [ "ninx", "-g", "daemon off;" ]
+CMD [ "nginx", "-g", "daemon off;" ]
 
 # CMD ["while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\""]
