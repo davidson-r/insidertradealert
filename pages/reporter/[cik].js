@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import pool from '../../db';
 const slugify = require('../../utils/functions');
 import Table from '@mui/joy/Table';
-import Button from '@mui/joy/Button';
-import Modal from '@mui/joy/Modal';
-import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography';
-import Sheet from '@mui/joy/Sheet';
-// import Link from 'next/link';
 
 import Link from '@mui/joy/Link';
 
@@ -42,7 +36,7 @@ const ReportOwner = ({ submissions }) => {
                     {
                         submissions.map((x, i) => <tr key={i}>
                             <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                            <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
+                            <td style={{ textAlign: `center` }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
                             > {x.issuer_name}</Link></td>
                             <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
                             <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
@@ -64,7 +58,7 @@ export default ReportOwner;
 
 export async function getStaticProps(context) {
     const { params } = context;
-    const cik = params.cik && params.cik.split('-')[0]
+    const cik = params.cik && params.cik.split('-').pop()
 
     var submissions = await pool.query(
         `select distinct cik,

@@ -39,7 +39,7 @@ const Header = () => {
   }
   >
     <Toolbar  >
-      <Link href='/' sx={{ fontSize: `1.5rem`, flexGrow: 1, textDecoration: `none` }}>
+      <Link href='/' sx={{ fontSize: `1.5rem`, flexGrow: 1 }} id="brand-title">
         InsiderTradeAlert
       </Link>
       <Search />
@@ -53,10 +53,10 @@ const Search = () => {
   const hits = [
     {
       "name": "Musk Elon",
-      "url": "/reporter/0001494730-musk-elon"
+      "url": "/reporter/musk-elon-0001494730"
     }, {
       "name": "Tesla, Inc.",
-      "url": "/issuer/0001318605-tesla-inc"
+      "url": "/issuer/tesla-inc-0001318605"
     }
   ]
 

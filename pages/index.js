@@ -45,7 +45,7 @@ export default function Home({page_data}) {
                         {
                             page_data.map((x, i) => <tr key={i}>
                                 <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
+                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
                                 > {x.issuer_name}</Link></td>
                                 <td style={{ textAlign: `center` }}>{x.report_owner_name}</td>
                                 <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
