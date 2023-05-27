@@ -10,15 +10,15 @@ services:
       - 80:80
       - 433:433
     
-  # certbot:
-  #   image: certbot/certbot
-  #   restart: always
-  #   volumes:
-  #     - ./data/certbot/conf:/etc/letsencrypt
-  #     - ./data/certbot/www:/var/www/certbot
-  #   command: certonly --webroot -w /var/www/certbot --force-renewal --email davidson1987@gmail.com -d insidertradealert.com --agree-tos
-  #   depends_on:
-  #     - nextjs
+  certbot:
+    image: certbot/certbot
+    restart: always
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email davidson1987@gmail.com -d insidertradealert.com --agree-tos
+    depends_on:
+      - nextjs
 
 
 
