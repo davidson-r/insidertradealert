@@ -1,6 +1,9 @@
 version: '3.8'
 services:
   nextjs:
+    build: ./
+    restart: always
+  nginx:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
@@ -11,12 +14,6 @@ services:
       - "80:80"
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  nginx:
-    build: ./nginx
-    restart: always
-    ports:
-      - 80:80
-      - 433:433
     
   certbot:
     image: certbot/certbot
