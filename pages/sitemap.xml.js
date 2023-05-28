@@ -7,16 +7,16 @@ export async function getServerSideProps({ res }) {
     res.setHeader('Content-Type', 'text/xml');
     res.write(`<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <sitemap>
-            <loc>http://insidertradealert.com/sitemap1.xml</loc>
+            <loc>https://insidertradealert.com/sitemap1.xml</loc>
         </sitemap>
         <sitemap>
-            <loc>http://insidertradealert.com/sitemap2.xml</loc>
+            <loc>https://insidertradealert.com/sitemap2.xml</loc>
         </sitemap>
         <sitemap>
-            <loc>http://insidertradealert.com/sitemap3.xml</loc>
+            <loc>https://insidertradealert.com/sitemap3.xml</loc>
         </sitemap>
         <sitemap>
-            <loc>http://insidertradealert.com/sitemap4.xml</loc>
+            <loc>https://insidertradealert.com/sitemap4.xml</loc>
         </sitemap>
     </sitemapindex>`);
     res.end();
