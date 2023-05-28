@@ -7,54 +7,58 @@ import Link from '@mui/joy/Link';
 import Head from 'next/head'
 
 import DetailedViewModal from "../../components/modals"
+import Loader from "../../components/Loader"
 
 
 let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
 const ReportOwner = ({ submissions }) => {
 
-    return submissions && (
-        <div><br /><br />
-            <h1>{submissions.length > 0 && submissions[0].report_owner_name}</h1>
-            <Head>
-                <title>{submissions[0].report_owner_name} | Insider Trade Alert</title>
-            </Head>
-
-            <i>{submissions.length > 0 && submissions[0].officer_title}
-            </i><br />
-            <h5><span style={{color:`#aaa`}}>{submissions.length > 0 && submissions[0].report_owner_city}</span>&emsp;
-                <span style={{color:`#aaa`}}>{submissions.length > 0 && submissions[0].report_owner_state}</span>
-            </h5>
-            {submissions && <Table style={{ maxWidth: 800 }}>
-                <thead>
-                    <tr>
-                        <th style={{ textAlign: `center`, width: `98px` }}>Filing Date</th>
-                        <th style={{ textAlign: `center`, width: `120px` }}>Issuer Name</th>
-                        <th style={{ textAlign: `center` }}> Acquired</th>
-                        <th style={{ textAlign: `center` }}> Disposed</th>
-                        <th style={{ textAlign: `center`, whiteSpace: `initial` }}> Owned after Transaction</th>
-                        <th style={{ textAlign: `center` }}>Detailed View</th>
-                        {/* <th style={{ textAlign: `center` }}>Filing</th> */}
-                    </tr>
-                </thead>
-                <tbody>
+    return !submissions ? <Loader/> :
+        submissions.length === 0 ? <div>Not Found.</div> : (
+            <div><br /><br />
+                <h1>{submissions.length > 0 && submissions[0].report_owner_name}</h1>
+                <Head>
+                    <title>{submissions[0].report_owner_name} | Insider Trade Alert</title>
+                </Head>
+                {submissions[0].officer_title && <i>{submissions.length > 0 && submissions[0].officer_title}<br /></i>}
+                <h5>
                     {
-                        submissions.map((x, i) => <tr key={i}>
-                            <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                            <td style={{ textAlign: `center` }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
-                            > {x.issuer_name}</Link></td>
-                            <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
-                            <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
-                            <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
-                            <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
-                            </td>
-                        </tr>)
+                        submissions[0].report_owner_city &&
+                        <span style={{ color: `#aaa` }}>{submissions[0].report_owner_city},&nbsp; </span>
                     }
-                </tbody>
-            </Table>
-            }
-        </div>
-    );
+                    <span style={{ color: `#aaa` }}>{submissions.length > 0 && submissions[0].report_owner_state}</span>
+                </h5>
+                {submissions && <Table style={{ maxWidth: 800 }}>
+                    <thead>
+                        <tr>
+                            <th style={{ textAlign: `center`, width: `98px` }}>Filing Date</th>
+                            <th style={{ textAlign: `center`, width: `120px` }}>Issuer Name</th>
+                            <th style={{ textAlign: `center` }}> Acquired</th>
+                            <th style={{ textAlign: `center` }}> Disposed</th>
+                            <th style={{ textAlign: `center`, whiteSpace: `initial` }}> Owned after Transaction</th>
+                            <th style={{ textAlign: `center` }}>Detailed View</th>
+                            {/* <th style={{ textAlign: `center` }}>Filing</th> */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            submissions.map((x, i) => <tr key={i}>
+                                <td style={{ textAlign: `center` }}>{x.filing_date}</td>
+                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
+                                > {x.issuer_name}</Link></td>
+                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
+                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
+                                <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
+                                <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
+                                </td>
+                            </tr>)
+                        }
+                    </tbody>
+                </Table>
+                }
+            </div>
+        );
 };
 
 export default ReportOwner;

@@ -61,8 +61,7 @@ export default function Home({page_data}) {
 
 export async function getStaticProps() {
     var index_query = await pool.query(
-        `
-          select distinct cik,
+        `select distinct cik,
           s.accession_number,
           report_owner_cik,issuer_cik,report_owner_name,issuer_name,
           to_char(filing_date,'yyyy-mm-dd')filing_date,
@@ -90,8 +89,7 @@ export async function getStaticProps() {
     return {
         props: {
             page_data: index_query.rows,
-            revalidate: false,
-            notFound:true
+            revalidate: 4320
         },
     };
 

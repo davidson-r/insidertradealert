@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import "../styles/loader.css"
 
 import Head from 'next/head'
 
@@ -13,7 +14,6 @@ import Button from '@mui/joy/Button';
 import Box from '@mui/material/Box';
 // import {Search as SearchIcon} from '@mui/icons-material';
 import Modal from '@mui/joy/Modal';
-import ModalClose from '@mui/joy/ModalClose';
 import Sheet from '@mui/joy/Sheet';
 import Input from '@mui/joy/Input';
 import List from '@mui/joy/List';
@@ -29,6 +29,7 @@ export default function App({ Component, pageProps }) {
     <Head>
       <meta name="description" content="Your trusted source for comprehensive insider trading information and analysis." />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="robots" content="index,follow"></meta>:
       <link rel="icon" href="/favicon.ico" />
     </Head>
 

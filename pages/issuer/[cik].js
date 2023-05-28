@@ -6,19 +6,18 @@ import Link from '@mui/joy/Link';
 import DetailedViewModal from "../../components/modals"
 import Head from 'next/head'
 
-
+import Loader from "../../components/Loader"
 
 let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
 const ReportOwner = ({ submissions }) => {
 
-    return submissions && (
-        <div><br /><br />
+    return !submissions ? <Loader/> :
+        submissions.length === 0 ? <div>Not Found.</div> : (<div><br /><br />
             <h1>{submissions.length > 0 && submissions[0].issuer_name}</h1>
             <Head>
                 <title>{submissions[0].issuer_name} | Insider Trade Alert</title>
             </Head>
-
             <br />
             {submissions && <Table style={{ maxWidth: 800 }} >
                 <thead>
@@ -33,6 +32,7 @@ const ReportOwner = ({ submissions }) => {
                         {/* <th style={{ textAlign: `center` }}>Filing</th> */}
                     </tr>
                 </thead>
+                
                 <tbody>
                     {
                         submissions.map((x, i) => <tr key={i}>
@@ -54,7 +54,7 @@ const ReportOwner = ({ submissions }) => {
             </Table>
             }
         </div>
-    );
+        );
 };
 
 export default ReportOwner;
