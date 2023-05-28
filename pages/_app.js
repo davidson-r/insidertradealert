@@ -20,6 +20,7 @@ import List from '@mui/joy/List';
 import ListSubheader from '@mui/joy/ListSubheader';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
+import Script from 'next/script'
 
 
 export default function App({ Component, pageProps }) {
@@ -38,17 +39,15 @@ export default function App({ Component, pageProps }) {
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMWEMS1X6C"
       strategy="afterInteractive"
     ></script>
-    <script>
-      {
-        `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-WMWEMS1X6C');
-        `
-      }
-    </script>
-
+            <Script
+          id='vwoCode' 
+          strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-WMWEMS1X6C');
+          `}
+          </Script>
     <Container maxWidth="lg" style={{ minHeight: `80vh` }} >
       <Component {...pageProps} />
     </Container>
