@@ -27,9 +27,7 @@ coverage.xml
 .pytest_cache
 .hypothesis
 
-data/form4/
-
-data/submissions/
+data/
 submissions/
 
 .git/

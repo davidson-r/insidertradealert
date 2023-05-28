@@ -39,7 +39,5 @@ next-env.d.ts
 .env
 __pycache__
 
-data/form4/*
-
-data/submissions/*
+data/*
 submissions/*
