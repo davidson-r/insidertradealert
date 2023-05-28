@@ -23,6 +23,7 @@ const ReportOwner = ({ submissions }) => {
                 <thead>
                     <tr>
                         <th style={{ textAlign: `center`, width: `150px` }}></th>
+                        <th style={{ textAlign: `center`, width: `150px` }}>Title</th>
                         <th style={{ textAlign: `center`, width: `98px` }}>Filing Date</th>
                         {/* <th style={{ textAlign: `center` }}>Issuer Name</th> */}
                         <th style={{ textAlign: `center` }}> Acquired</th>
@@ -39,6 +40,7 @@ const ReportOwner = ({ submissions }) => {
                             <td style={{ textAlign: `center` }}>
                                 <Link href={`/reporter/${slugify(x.report_owner_name)}-${x.report_owner_cik}`}
                                 > {x.report_owner_name}</Link></td>
+                            <td style={{ textAlign: `center` }}>{x.officer_title}</td>
                             <td style={{ textAlign: `center` }}>{x.filing_date}</td>
                             {/* <td style={{ textAlign: `center` }}><Link href={`/issuer/${x.issuer_cik}-${slugify(x.issuer_name)}`}
                                 > {x.issuer_name}</Link></td> */}
@@ -73,6 +75,7 @@ export async function getStaticProps(context) {
         report_owner_street1,
         report_owner_street2,
         report_owner_zip,
+        officer_title,
         url,
 		securities_acquired,
 		securities_disposed,
