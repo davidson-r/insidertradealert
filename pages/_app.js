@@ -34,9 +34,23 @@ export default function App({ Component, pageProps }) {
     </Head>
 
     <Header />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMWEMS1X6C"></script>
+    <script>
+      {
+        `
+        window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WMWEMS1X6C');
+        `
+      }
+    </script>
+
     <Container maxWidth="lg" style={{ minHeight: `80vh` }} >
       <Component {...pageProps} />
     </Container>
+
   </>
 }
 
