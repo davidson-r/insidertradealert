@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
 
   return <>
     <Head>
-      <meta name="description" content="" />
+      <meta name="description" content="Your trusted source for comprehensive insider trading information and analysis." />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
