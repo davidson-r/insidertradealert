@@ -37,10 +37,9 @@ export default function App({ Component, pageProps }) {
     <Header />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMWEMS1X6C"
-      strategy="afterInteractive"
+      // strategy="afterInteractive"
     ></script>
             <Script
-          id='vwoCode' 
           strategy="beforeInteractive">
           {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
