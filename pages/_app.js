@@ -35,14 +35,16 @@ export default function App({ Component, pageProps }) {
 
     <Header />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMWEMS1X6C"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMWEMS1X6C"
+      strategy="afterInteractive"
+    ></script>
     <script>
       {
         `
         window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WMWEMS1X6C');
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WMWEMS1X6C');
         `
       }
     </script>
