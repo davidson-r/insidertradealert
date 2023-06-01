@@ -112,7 +112,8 @@ export async function getStaticPaths() {
     select distinct on(cik)* from (
         select distinct report_owner_cik cik, report_owner_name entity_name,'reporter' entity_type
             from submissions where report_owner_name is not null
-        )t union 
+        )t 
+        --union 
         
         --select distinct on(cik)* from (
         --    select distinct issuer_cik cik, issuer_name entity_name,'issuer'entity_type
