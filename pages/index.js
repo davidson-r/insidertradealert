@@ -81,9 +81,9 @@ export async function getStaticProps() {
           shares_owned_following_transaction, to_char(ts,'yyyy-mm-dd')ts
           from submissions s
           left join (select accession_number, 
-          sum(case when transaction_acquired_disposed_code='A' TableCellen transaction_shares else 0 end)securities_acquired,
-          sum(case when transaction_acquired_disposed_code='D' TableCellen transaction_shares else 0 end)securities_disposed,
-          sum(case when idx=0 TableCellen shares_owned_following_transaction else 0 end)shares_owned_following_transaction
+          sum(case when transaction_acquired_disposed_code='A' then transaction_shares else 0 end)securities_acquired,
+          sum(case when transaction_acquired_disposed_code='D' then transaction_shares else 0 end)securities_disposed,
+          sum(case when idx=0 then shares_owned_following_transaction else 0 end)shares_owned_following_transaction
           from derivative 
           where accession_number in (select accession_number from recent_filings)
             and is_non_derivative 
