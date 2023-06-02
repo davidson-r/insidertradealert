@@ -112,7 +112,7 @@ export async function getStaticPaths() {
             select distinct issuer_cik cik, issuer_name entity_name,'issuer'entity_type
             from submissions where issuer_name is not null
         )t
-        order by 1,2 limit 10000`)
+        order by 1,2 limit 1000`)
     
     const paths = result.rows.map((x) => ({
         params: { cik: `${slugify(x.entity_name)}-${x.cik}` },
