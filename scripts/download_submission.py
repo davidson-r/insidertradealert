@@ -157,13 +157,13 @@ def download_and_update_submission(url: str, accession_number: str):
 @click.command()
 @click.option('--max_workers', default=1, help='Number of max workers')
 def main(max_workers: str):
-    records = get_submissions(100)
+    records = get_submissions(1000)
 
     while len(records):
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
             # print(res)
-        records = get_submissions(100)
+        records = get_submissions(1000)
 
 
 
