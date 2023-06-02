@@ -28,7 +28,7 @@ export default function Home({page_data}) {
         <br />
         <h1>
           Recent Filings.</h1><br/>
-          {page_data && <TableContainer component={Paper}> <Table size="small" style={{minWidTableCell: 650}}>
+          {page_data && <TableContainer style={{width:1200}} component={Paper}> <Table size="small" >
                     <TableHead>
                         <TableRow>
                             <TableCell style={{ textAlign: `center`}}>Filing Date</TableCell>
