@@ -108,20 +108,20 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    var result = await pool.query(`
-    select distinct on(cik)* from (
-        select distinct report_owner_cik cik, report_owner_name entity_name,'reporter' entity_type
-            from submissions where report_owner_name is not null
-        )t 
-        --union 
+    // var result = await pool.query(`
+    // select distinct on(cik)* from (
+    //     select distinct report_owner_cik cik, report_owner_name entity_name,'reporter' entity_type
+    //         from submissions where report_owner_name is not null
+    //     )t 
+    //     --union 
         
-        --select distinct on(cik)* from (
-        --    select distinct issuer_cik cik, issuer_name entity_name,'issuer'entity_type
-        --    from submissions where issuer_name is not null
-        --)t
-        order by 1,2 limit 10`)
+    //     --select distinct on(cik)* from (
+    //     --    select distinct issuer_cik cik, issuer_name entity_name,'issuer'entity_type
+    //     --    from submissions where issuer_name is not null
+    //     --)t
+    //     order by 1,2 limit 10`)
     
-    const paths = result.rows.map((x) => ({
+    const paths = [].map((x) => ({
         params: { cik: `${slugify(x.entity_name)}-${x.cik}` },
     }));
 
