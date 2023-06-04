@@ -148,7 +148,7 @@ def get_derivate(submission, accession_number):
 
 
 def download_and_update_submission(url: str, accession_number: str):
-    print(accession_number)
+    # print(accession_number)
     submission = download_save_submission(url, accession_number)
     owner_info = get_owner_info(submission)
     write_owner_info(owner_info=owner_info, accession_number=accession_number)
@@ -161,11 +161,13 @@ def main(max_workers: str):
     records = get_submissions(1000)
 
     while len(records):
-        signal.alarm(59*60) #seconds    
-
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
-            # print(res)
+            for idx, record in enumerate(records):
+                signal.alarm(59*60) #seconds
+                executor.submit(download_and_update_submission, record.url, record.accession_number)
+                if idx % 1000 ==0:
+                    print(idx, record.accession_number)
+
         records = get_submissions(1000)
 
 
