@@ -27,6 +27,9 @@ services:
     volumes:
       - data/form4:/app/data/form4
 
+volumes:
+  pyscripts:
+    driver: local
 
 
 
