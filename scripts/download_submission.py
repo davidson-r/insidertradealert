@@ -161,7 +161,7 @@ def main(max_workers: str):
     records = get_submissions(1000)
 
     while len(records):
-        signal.alarm(10) #seconds    
+        signal.alarm(59*60) #seconds    
 
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
