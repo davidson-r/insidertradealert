@@ -10,5 +10,5 @@ COPY . .
 
 COPY crontab /etc/crontab
 RUN chmod 0644 /etc/crontab
-RUN /usr/bin/crontab 
+# RUN /usr/bin/crontab 
 CMD ["cron", "-f"]
