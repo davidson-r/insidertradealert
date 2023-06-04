@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN apk add --update busybox-suid
+RUN apt-get update && apt-get busybox-suid
 
 
 # ADD crontab /etc/cron.d/my-cron-file
