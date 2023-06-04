@@ -1,1 +1,2 @@
-*/1 * * * * echo test
+*/1 * * * * echo test >> echotest.log 2>&1
+
