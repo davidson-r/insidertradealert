@@ -25,13 +25,7 @@ services:
   pyscripts:
     build: ./scripts
     volumes:
-      - data/form4:/app/data/form4
-
-volumes:
-  pyscripts:
-    driver: local
-
-
+      - ./data/form4:/app/data/form4
 
 
 
