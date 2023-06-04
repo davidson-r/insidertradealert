@@ -30,6 +30,7 @@ services:
       - ./data/form4:/app/data/form4
     environment:
       env: production
+      DATABASE_URL: postgresql://postgres:postgres@172.19.0.1:5432/postgres
 
 
 
