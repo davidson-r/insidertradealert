@@ -8,7 +8,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-COPY crontab /etc/crontab
-RUN chmod 0644 /etc/crontab
-# RUN /usr/bin/crontab 
-CMD ["cron", "-f"]
+
+# ADD crontab /etc/cron.d/my-cron-file
+
+# RUN chmod 0644 /etc/cron.d/my-cron-file
+
+# RUN crontab /etc/cron.d/my-cron-file
+
+ENTRYPOINT ["cron", "-f"]
