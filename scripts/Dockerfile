@@ -8,14 +8,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# RUN apt-get update 
-# RUN apt-get install busybox-suid -y 
 
+RUN apt-get update && apt-get install -y cron
+COPY crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab && crontab /etc/cron.d/crontab
 
-# ADD crontab /etc/cron.d/my-cron-file
-
-# RUN chmod 0644 /etc/cron.d/my-cron-file
-
-# RUN crontab /etc/cron.d/my-cron-file
-
-ENTRYPOINT ["true"]
+ENTRYPOINT ["cron", "-f"]
