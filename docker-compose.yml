@@ -3,6 +3,8 @@ services:
   nextjs:
     build: ./
     restart: always
+    environment:
+      env: production
   nginx:
     image: nginx:alpine
     restart: unless-stopped
@@ -26,6 +28,8 @@ services:
     build: ./scripts
     volumes:
       - ./data/form4:/app/data/form4
+    environment:
+      env: production
 
 
 
