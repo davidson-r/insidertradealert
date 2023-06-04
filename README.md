@@ -56,3 +56,6 @@ https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-m
 
 chmod +x init-letsencrypt.sh
 sudo ./init-letsencrypt.sh
+
+# Docker cron
+https://www.howtogeek.com/devops/how-to-use-cron-with-your-docker-containers/
