@@ -18,4 +18,4 @@ RUN apt-get install busybox-suid -y
 
 # RUN crontab /etc/cron.d/my-cron-file
 
-ENTRYPOINT ["cron", "-f"]
+ENTRYPOINT ["true"]
