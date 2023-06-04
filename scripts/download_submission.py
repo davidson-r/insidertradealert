@@ -9,6 +9,7 @@ import os.path
 import click
 from concurrent import futures
 from sqlalchemy.dialects.postgresql.dml import OnConflictDoNothing
+import signal
 
 
 def download_save_submission(url: str, accession_number: str):
@@ -160,6 +161,8 @@ def main(max_workers: str):
     records = get_submissions(1000)
 
     while len(records):
+        signal.alarm(10) #seconds    
+
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             res = [executor.submit(download_and_update_submission, record.url, record.accession_number) for record in records]
             # print(res)
