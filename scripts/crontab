@@ -1,2 +1,2 @@
-
 0 * * * * cd /app && python3 download_submission.py  >> data/download_submission.log 2>&1
+
