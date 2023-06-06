@@ -27,7 +27,7 @@ services:
   pyscripts:
     build: ./scripts
     volumes:
-      - ./data/form4:/app/data/form4
+      - ./data:/app/data
     environment:
       env: production
       DATABASE_URL: postgresql://postgres:postgres@172.19.0.1:5432/postgres
