@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Table from '@mui/joy/Table';
+import React from 'react';
 import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 import useFetch from "../components/fetch"
@@ -83,39 +90,39 @@ const Derivative = ({ securities }) => {
     return (
         <><i>Derivative Securities Acquired, Disposed of, or Beneficially Owned
             (e.g., puts, calls, warrants, options, convertible securities)</i>
-            <Table size="sm" style={{width:`100%`}}>
-                <thead>
-                    <tr>
+            <TableContainer component={Paper}> <Table size="small" >
+                <TableHead>
+                    <TableRow>
                         {/* <th>Holding</th>
                     <th>idx</th> */}
-                        <th style={{width:`150px`}}>Title</th>
-                        <th> Date</th>
-                        <th> Code</th>
-                        <th>Transaction</th>
-                        <th> Price</th>
-                        <th> Amount</th>
-                        <th style={{whiteSpace:`initial`}}> Owned after Transaction</th>
-                        <th>Ownership</th>
-                        <th style={{whiteSpace:`initial`}}>Ownership Nature</th>
-                    </tr>
-                </thead>
-                <tbody>
+                        <TableCell style={{width:`150px`}}>Title</TableCell>
+                        <TableCell> Date</TableCell>
+                        <TableCell> Code</TableCell>
+                        <TableCell>Transaction</TableCell>
+                        <TableCell> Price</TableCell>
+                        <TableCell> Amount</TableCell>
+                        <TableCell style={{whiteSpace:`initial`}}> Owned after Transaction</TableCell>
+                        <TableCell>Ownership</TableCell>
+                        <TableCell style={{whiteSpace:`initial`}}>Ownership Nature</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {
-                        derivative.map((x, i) => <tr key={i}>
+                        derivative.map((x, i) => <TableRow key={i}>
                             {/* <td>{x.holding}</td>
                         <td>{x.idx}</td> */}
-                            <td>{x.security_title}</td>
-                            <td>{x.transaction_date}</td>
-                            <td>{x.transaction_code}</td>
-                            <td>{x.transaction_acquired_disposed_code}</td>
-                            <td>{x.transaction_price_per_share}</td>
-                            <td>{x.transaction_shares}</td>
-                            <td>{x.shares_owned_following_transaction}</td>
-                            <td>{x.direct_or_indirect_ownership}</td>
-                            <td>{x.nature_of_ownership}</td>
-                        </tr>)
+                            <TableCell>{x.security_title}</TableCell>
+                            <TableCell>{x.transaction_date}</TableCell>
+                            <TableCell>{x.transaction_code}</TableCell>
+                            <TableCell>{x.transaction_acquired_disposed_code}</TableCell>
+                            <TableCell>{x.transaction_price_per_share}</TableCell>
+                            <TableCell>{x.transaction_shares}</TableCell>
+                            <TableCell>{x.shares_owned_following_transaction}</TableCell>
+                            <TableCell>{x.direct_or_indirect_ownership}</TableCell>
+                            <TableCell>{x.nature_of_ownership}</TableCell>
+                        </TableRow>)
                     }
-                </tbody></Table><br />
+                </TableBody></Table></TableContainer><br />
         </>
     )
 }
@@ -128,8 +135,9 @@ const NonDerivative = ({ securities }) => {
         return
     }
     return (
-        <><i>Non-Derivative Securities Acquired, Disposed of, or Beneficially Owned</i><Table size="sm">
-            <thead>
+        <><i>Non-Derivative Securities Acquired, Disposed of, or Beneficially Owned</i>
+        <TableContainer component={Paper}> <Table size="small" >
+            <TableHead>
                 <tr>
                     {/* <th>Holding</th>
                     <th>idx</th> */}
@@ -143,8 +151,8 @@ const NonDerivative = ({ securities }) => {
                     <th>Ownership</th>
                     <th style={{whiteSpace:`initial`}}>Ownership Nature</th>
                 </tr>
-            </thead>
-            <tbody>
+            </TableHead>
+            <TableBody>
                 {
                     nonderivative.map((x, i) => <tr key={i}>
                         {/* <td>{String(x.holding)}</td>
@@ -160,6 +168,8 @@ const NonDerivative = ({ securities }) => {
                         <td>{x.nature_of_ownership}</td>
                     </tr>)
                 }
-            </tbody></Table><br /><br /></>
+            </TableBody></Table>
+            </TableContainer>
+            <br /><br /></>
     )
 }

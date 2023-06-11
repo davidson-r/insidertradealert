@@ -15,7 +15,7 @@ let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
 
 
-export default function Home({page_data}) {
+export default function Home({ page_data }) {
   return (
     <>
       <Head>
@@ -27,37 +27,39 @@ export default function Home({page_data}) {
         <br />
         <br />
         <h1>
-          Recent Filings.</h1><br/>
-          {page_data && <TableContainer style={{width:1200}} component={Paper}> <Table size="small" >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{ textAlign: `center`}}>Filing Date</TableCell>
-                            <TableCell style={{ textAlign: `center` }}>Issuer Name</TableCell>
-                            <TableCell style={{ textAlign: `center` }}>Report Owner Name</TableCell>
-                            <TableCell style={{ textAlign: `center` }}> Acquired</TableCell>
-                            <TableCell style={{ textAlign: `center` }}> Disposed</TableCell>
-                            <TableCell style={{ textAlign: `center`, whiteSpace:`nowrap` }}> Owned after Transaction</TableCell>
-                            <TableCell style={{ textAlign: `center` }}>Detailed View</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            page_data.map((x, i) => <TableRow key={i}>
-                                <TableCell style={{ textAlign: `center`, whiteSpace:'nowrap',maxWidTableCell:'100%' }}>{x.filing_date}</TableCell>
-                                <TableCell style={{ textAlign: `center`, whiteSpace:'nowrap',maxWidTableCell:'100%'  }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
-                                > {x.issuer_name}</Link></TableCell>
-                                <TableCell style={{ textAlign: `center`, whiteSpace:'nowrap',maxWidTableCell:'100%'  }}>{x.report_owner_name}</TableCell>
-                                <TableCell style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</TableCell>
-                                <TableCell style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</TableCell>
-                                <TableCell style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</TableCell>
-                                <TableCell style={{ textAlign: `center` }}>
-                                     <DetailedViewModal accession_number={x.accession_number} filing_url={x.url}/>
-                                </TableCell>
-                            </TableRow>)
-                        }
-                    </TableBody>
-                </Table></TableContainer>
-                }
+          Recent Filings.</h1><br />
+        {page_data && <TableContainer component={Paper}> <Table size="small" >
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ textAlign: `center` }}>Filing Date</TableCell>
+              <TableCell >Issuer Name</TableCell>
+              <TableCell >Report Owner Name</TableCell>
+              <TableCell > Acquired</TableCell>
+              <TableCell > Disposed</TableCell>
+              <TableCell style={{ textAlign: `center`, whiteSpace: `nowrap` }}> Owned after Transaction</TableCell>
+              <TableCell >Detailed View</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              page_data.map((x, i) => <TableRow key={i}>
+                <TableCell >{x.filing_date}</TableCell>
+                <TableCell ><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
+                > {x.issuer_name}</Link></TableCell>
+                <TableCell ><Link href={`/reporter/${slugify(x.report_owner_name)}-${x.report_owner_cik}`}
+                > {x.report_owner_name}</Link></TableCell>
+                <TableCell >{x.report_owner_name}</TableCell>
+                <TableCell >{formatter.format(x.securities_acquired)}</TableCell>
+                <TableCell >{formatter.format(x.securities_disposed)}</TableCell>
+                <TableCell >{formatter.format(x.shares_owned_following_transaction)}</TableCell>
+                <TableCell >
+                  <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
+                </TableCell>
+              </TableRow>)
+            }
+          </TableBody>
+        </Table></TableContainer>
+        }
       </main>
     </>
   )
@@ -66,8 +68,8 @@ export default function Home({page_data}) {
 
 
 export async function getStaticProps() {
-    var index_query = await pool.query(
-        `select distinct cik,
+  var index_query = await pool.query(
+    `select distinct cik,
           s.accession_number,
           report_owner_cik,issuer_cik,report_owner_name,issuer_name,
           to_char(filing_date,'yyyy-mm-dd')filing_date,
@@ -92,12 +94,12 @@ export async function getStaticProps() {
           order by ts desc
           ;
 ;` );
-    return {
-        props: {
-            page_data: index_query.rows,
-            revalidate: 4320
-        },
-    };
+  return {
+    props: {
+      page_data: index_query.rows,
+      revalidate: 4320
+    },
+  };
 
 }
 

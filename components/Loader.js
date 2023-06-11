@@ -8,7 +8,7 @@ const Loader = () => {
         textAlign:'center',
         minHeight:'70vh'
         }}>
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         </div>
     );
 };

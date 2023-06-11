@@ -1,7 +1,13 @@
 import React from 'react';
 import pool from '../../db';
 const slugify = require('../../utils/functions');
-import Table from '@mui/joy/Table';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 import Link from '@mui/joy/Link';
 import Head from 'next/head'
@@ -29,33 +35,33 @@ const ReportOwner = ({ submissions }) => {
                     }
                     <span style={{ color: `#aaa` }}>{submissions.length > 0 && submissions[0].report_owner_state}</span>
                 </h5>
-                {submissions && <Table style={{ maxWidth: 800 }}>
-                    <thead>
-                        <tr>
-                            <th style={{ textAlign: `center`, width: `98px` }}>Filing Date</th>
-                            <th style={{ textAlign: `center`, width: `120px` }}>Issuer Name</th>
-                            <th style={{ textAlign: `center` }}> Acquired</th>
-                            <th style={{ textAlign: `center` }}> Disposed</th>
-                            <th style={{ textAlign: `center`, whiteSpace: `initial` }}> Owned after Transaction</th>
-                            <th style={{ textAlign: `center` }}>Detailed View</th>
-                            {/* <th style={{ textAlign: `center` }}>Filing</th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
+                {submissions &&  <TableContainer  component={Paper}> <Table size="small">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell >Filing Date</TableCell>
+                            <TableCell >Issuer Name</TableCell>
+                            <TableCell > Acquired</TableCell>
+                            <TableCell > Disposed</TableCell>
+                            <TableCell style={{ textAlign: `center`, whiteSpace: `initial` }}> Owned after Transaction</TableCell>
+                            <TableCell >Detailed View</TableCell>
+                            {/* <th >Filing</th> */}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                         {
-                            submissions.map((x, i) => <tr key={i}>
-                                <td style={{ textAlign: `center` }}>{x.filing_date}</td>
-                                <td style={{ textAlign: `center` }}><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
-                                > {x.issuer_name}</Link></td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_acquired)}</td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.securities_disposed)}</td>
-                                <td style={{ textAlign: `center` }}>{formatter.format(x.shares_owned_following_transaction)}</td>
-                                <td style={{ textAlign: `center` }}> <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
-                                </td>
-                            </tr>)
+                            submissions.map((x, i) => <TableRow key={i}>
+                                <TableCell >{x.filing_date}</TableCell>
+                                <TableCell ><Link href={`/issuer/${slugify(x.issuer_name)}-${x.issuer_cik}`}
+                                > {x.issuer_name}</Link></TableCell>
+                                <TableCell >{formatter.format(x.securities_acquired)}</TableCell>
+                                <TableCell >{formatter.format(x.securities_disposed)}</TableCell>
+                                <TableCell >{formatter.format(x.shares_owned_following_transaction)}</TableCell>
+                                <TableCell > <DetailedViewModal accession_number={x.accession_number} filing_url={x.url} />
+                                </TableCell>
+                            </TableRow>)
                         }
-                    </tbody>
-                </Table>
+                    </TableBody>
+                </Table></TableContainer>
                 }
             </div>
         );
