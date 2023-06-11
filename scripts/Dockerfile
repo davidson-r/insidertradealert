@@ -13,4 +13,7 @@ RUN apt-get -qq update && apt-get -qq install -y cron
 COPY crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab && crontab /etc/cron.d/crontab
 
+CMD printenv | grep -v "no_proxy" >> /etc/environment
+
+
 ENTRYPOINT ["cron", "-f"]
