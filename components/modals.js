@@ -138,35 +138,35 @@ const NonDerivative = ({ securities }) => {
         <><i>Non-Derivative Securities Acquired, Disposed of, or Beneficially Owned</i>
         <TableContainer component={Paper}> <Table size="small" >
             <TableHead>
-                <tr>
+                <TableRow>
                     {/* <th>Holding</th>
                     <th>idx</th> */}
-                    <th style={{width:`150px`}}>Title</th>
-                    <th> Date</th>
-                    <th> Code</th>
-                    <th>Transaction</th>
-                    <th> Price</th>
-                    <th> Amount</th>
-                    <th style={{whiteSpace:`initial`}}> Owned after Transaction</th>
-                    <th>Ownership</th>
-                    <th style={{whiteSpace:`initial`}}>Ownership Nature</th>
-                </tr>
+                    <TableCell style={{width:`150px`}}>Title</TableCell>
+                    <TableCell> Date</TableCell>
+                    <TableCell> Code</TableCell>
+                    <TableCell>Transaction</TableCell>
+                    <TableCell> Price</TableCell>
+                    <TableCell> Amount</TableCell>
+                    <TableCell style={{whiteSpace:`initial`}}> Owned after Transaction</TableCell>
+                    <TableCell>Ownership</TableCell>
+                    <TableCell style={{whiteSpace:`initial`}}>Ownership Nature</TableCell>
+                </TableRow>
             </TableHead>
             <TableBody>
                 {
-                    nonderivative.map((x, i) => <tr key={i}>
+                    nonderivative.map((x, i) => <TableRow key={i}>
                         {/* <td>{String(x.holding)}</td>
                         <td>{x.idx}</td> */}
-                        <td>{x.security_title}</td>
-                        <td>{x.transaction_date}</td>
-                        <td>{x.transaction_code}</td>
-                        <td>{x.transaction_acquired_disposed_code}</td>
-                        <td>{x.transaction_price_per_share}</td>
-                        <td>{formatter.format(x.transaction_shares)}</td>
-                        <td>{formatter.format(x.shares_owned_following_transaction)}</td>
-                        <td>{x.direct_or_indirect_ownership}</td>
-                        <td>{x.nature_of_ownership}</td>
-                    </tr>)
+                        <TableCell>{x.security_title}</TableCell>
+                        <TableCell>{x.transaction_date}</TableCell>
+                        <TableCell>{x.transaction_code}</TableCell>
+                        <TableCell>{x.transaction_acquired_disposed_code}</TableCell>
+                        <TableCell>{x.transaction_price_per_share}</TableCell>
+                        <TableCell>{formatter.format(x.transaction_shares)}</TableCell>
+                        <TableCell>{formatter.format(x.shares_owned_following_transaction)}</TableCell>
+                        <TableCell>{x.direct_or_indirect_ownership}</TableCell>
+                        <TableCell>{x.nature_of_ownership}</TableCell>
+                    </TableRow>)
                 }
             </TableBody></Table>
             </TableContainer>
