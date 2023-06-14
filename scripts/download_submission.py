@@ -10,6 +10,7 @@ import click
 from concurrent import futures
 from sqlalchemy.dialects.postgresql.dml import OnConflictDoNothing
 import signal
+from random import randrange
 
 
 def download_save_submission(url: str, accession_number: str):
@@ -158,18 +159,20 @@ def download_and_update_submission(url: str, accession_number: str):
 @click.command()
 @click.option('--max_workers', default=1, help='Number of max workers')
 def main(max_workers: str):
-    records = get_submissions(1000)
+    limit = randrange(1000)
+    records = get_submissions(limit)
     print(f"Got {len(records)} records")
 
     while len(records):
+        limit = randrange(1000)
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             for idx, record in enumerate(records):
                 signal.alarm(59*60) #seconds
                 executor.submit(download_and_update_submission, record.url, record.accession_number)
-                if idx % 1000 ==0:
+                if idx % limit ==0:
                     print(idx, record.accession_number)
 
-        records = get_submissions(1000)
+        records = get_submissions(limit)
         print(f"Got {len(records)} records")
      
 
